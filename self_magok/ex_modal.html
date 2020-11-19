@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+      .btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 150px;
+        height: 50px;
+        line-height: 50px;
+        border: 1px solid red;
+        cursor: pointer;
+        text-align: center;
+      }
+      
+      .modal {
+        display: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2;
+      }
+      
+      .modal_content {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        border: 10px solid rgb(196, 25, 25);
+        background-color: red;
+        overflow: auto;
+      }
+ 
+    </style>
+    <script  src="https://code.jquery.com/jquery-3.5.1.js"  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="  crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function() {
+        $(".btn").click(function() {
+          //$(".modal").fadeIn();
+          $(".modal").show();
+        });
+        $(".btn_close").click(function() {
+          $(".modal").fadeOut();
+        });
+      });
+ 
+    </script>
+  </head>
+ 
+  <body>
+    <a href="javascript:void(0)" class="btn">
+            누르면 팝업창 뜹니다
+    </a>
+    <div class="modal">
+      <p class="modal_content">
+        <a href="javascript:void(0)" class="btn_close">클릭하면 창이 닫힙니다</a>
+      </p>
+    </div>
+  </body>
+</html>
