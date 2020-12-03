@@ -1,76 +1,66 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>CSS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="./style.css">
     <style>
-      #jb-container {
-        margin: 10px auto;
-        padding: 20px;
-        border: 1px solid #bcbcbc;
+      h1 {
+          text-align:center;
       }
-      #jb-header {
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid #bcbcbc;
+
+      div {
+          font-size: 30px;
+          text-align: center;
       }
-      #jb-content {
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid #bcbcbc;
+
+      #main {
+          display: grid;
+          grid-template-columns: 3fr 1fr;    
       }
-      #jb-sidebar {
-        padding: 20px;
-        margin-bottom: 20px;
-        border: 1px solid #bcbcbc;
+
+      #main #contents {
+          min-height: 500px; 
+          background-color:#00ffff; 
+          margin-right: 10px;
       }
-      #jb-footer {
-        padding: 20px;
-        border: 1px solid #bcbcbc;
+
+      #main #sidebar {
+          min-height: 500px; 
+          background-color: #00bfff;
       }
-      @media ( min-width: 481px ) {
-        #jb-container {
-          width: 940px;
-        }
-        #jb-content {
-          width: 580px;
-          float: left;
-        }
-        #jb-sidebar {
-          width: 260px;
-          float: right;
-        }
-        #jb-footer {
-          clear: both;
-        }
+
+      #footer {
+          margin-top: 10px; 
+          background-color: #00bfff;
       }
+
+      @media (max-width:600px){ /*가로 너비가 600px 이하일 때 아래 스타일 적용*/
+          #main {
+              display: block;    
+          }
+
+          #main #contents {  
+              margin-bottom: 10px; 
+              margin-right: 0px;
+          }
+          #main #sidebar {
+              min-height: 0;
+          }
+      }
+
     </style>
-  </head>
-  <body>
-    <div id="jb-container">
-      <div id="jb-header">
-        <h1>Responsive Layout</h1>
-      </div>
-      <div id="jb-content">
-        <h2>Content</h2>
-        <p>Lorem ipsum dolor sit amet,
-          aaaaaaaaaaaaaaaaaaaaa
-        </p>
-        <p>JIN.</p>
-        <p>JIN.</p>
-      </div>
-      <div id="jb-sidebar">
-        <h2>Sidebar</h2>
-        <ul>
-          <li>Lorem</li>
-          <li>Ipsum</li>
-          <li>Dolor</li>
-        </ul>
-      </div>
-      <div id="jb-footer">
-        <p>Copyright</p>
-      </div>
+</head>
+<body>
+    
+    <h1>bskyvision</h1>
+    
+    <div id="main">
+        <div id="contents">본문 영역입니다.</div>
+        <div id="sidebar">사이드바 영역입니다.</div>
     </div>
-  </body>
+
+    <div id="footer">푸터 영역입니다.</div>
+</body>
 </html>
