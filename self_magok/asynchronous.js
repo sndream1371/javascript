@@ -1,5 +1,16 @@
-
 function asyncClick(){ //클릭시 처리
+
+    console.log("비동기 처리 예....");
+
+    try {
+        var fruits = ["사과", "배", "오렌지"];
+    
+        console.log("fruits len:"+fruits.length);
+    } catch (error) {
+        console.log("오류 발생함..."+error);
+           
+    }
+
 
     //동기화 처리 function
     function func1() {
@@ -38,4 +49,9 @@ function asyncClick(){ //클릭시 처리
     }
     
     nonAsyfunc1();
+
+
+    
+
+
 }

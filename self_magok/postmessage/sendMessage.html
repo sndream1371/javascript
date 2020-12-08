@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+ <meta charset="utf-8" />
+<script>
+var childwin;
+const childname = "popup";
+function openChild() {
+  childwin = window.open('recvMessage.html', childname, 'height=300px, width=500px');
+}
+function sendMessage(){
+    let msg={pName : "Bob", pAge: "35"};
+    // In production, DO NOT use '*', use toe target domain
+    childwin.postMessage(msg,'*')// childwin is the targetWindow
+    childwin.focus();
+}
+
+/*recv message from popup-------------------------------------*/
+// Allow window to listen for a postMessage
+window.addEventListener("message", (event)=>{
+
+  console.log('from popup origin :'+event.origin);
+
+  // Normally you would check event.origin
+  // To verify the targetOrigin matches
+  // this window's domain
+  let txt=document.querySelector('#recvMsg');
+
+  // event.data contains the message sent
+  txt.text =`Name is ${event.data.name} Age is  ${event.data.age} and sex is ${event.data.sex} and footsize is ${event.data.footsize} ...` ;
+
+  console.log(`Name is ${event.data.name} Age is  ${event.data.age} and sex is ${event.data.sex} and footsize is ${event.data.footsize} ...`);
+});
+
+</script>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <input type='button' id='btnopen' value='Open child' onclick='openChild();' />
+            <input type='button' id='btnSendMsg' value='Send Message' onclick='sendMessage();' />
+        </fieldset>
+    </form>
+
+    <div id='recvMsg'></div>
+</body>
+</html>

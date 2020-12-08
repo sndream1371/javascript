@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <script>
+    // Allow window to listen for a postMessage
+    window.addEventListener("message", (event)=>{
+
+      console.log('recvmsg origin :'+event.origin);
+
+      // Normally you would check event.origin
+      // To verify the targetOrigin matches
+      // this window's domain
+      let txt=document.querySelector('#txtMsg');
+
+      // event.data contains the message sent
+      txt.value=`Name is ${event.data.pName} Age is  ${event.data.pAge}` ;
+    });
+
+    function closeMe() {
+      try {
+        window.close();
+      } catch (e) { console.log(e) }
+
+      try {
+        self.close();
+      } catch (e) { console.log(e) }
+    }
+
+    /* 송신----------------------------------------------------------*/
+    const openerWindow = window.opener; //현재창을 열었던 창의 참조를 반환
+
+    function sendMessage(){
+      let msg={name : "jinyoung", age: "10", sex: 'male', footsize : '300m'};
+      // In production, DO NOT use '*', use toe target domain
+      openerWindow.postMessage(msg,'*')// childwin is the targetWindow
+      openerWindow.focus();
+    }
+
+    </script>
+</head>
+
+<body>
+    <form>
+        <h1>Recipient of postMessage</h1>
+            <fieldset>
+                <input type='text' id='txtMsg' />
+                <input type="button" onclick='sendMessage();' value="parent win send message">
+                <input type='button' id='btnCloseMe' value='Close me' onclick='closeMe();' />
+            </fieldset>
+   
+    </form>
+</body>
+
+</html>
