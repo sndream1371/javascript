@@ -5,9 +5,30 @@
     <meta charset="utf-8" />
     <script>
     // Allow window to listen for a postMessage
+    // postmessage를 수신받아 처리하는 메소드
     window.addEventListener("message", (event)=>{
 
       console.log('recvmsg origin :'+event.origin);
+
+      if( event.origin !== 'http://127.0.0.1:5500'){
+        console.log('접근이 불가합니다.');
+        return;
+      }
+
+      let rcvData = event.data;
+      console.log(event.data);
+      console.log('typeof event :'+typeof event); //event는 postmessage로 받으니 모두 object이다.
+      console.log('typeof event.data :'+typeof event.data); //event.data는 받는 데이터가 보내느쪽 기준으로 object,string 나뉘어진다.
+      console.log('typeof rcvData :'+typeof rcvData);
+      if(typeof rcvData === 'string'){
+        console.log('스트링이다.')
+        printWin('스트링이다.'); //브라우져 출력
+      }else if(typeof rcvData === 'object'){
+        console.log('Object이다..')
+        printWin('Object이다.')
+      }else{
+        console.log('Not Object, Not String')
+      }
 
       // Normally you would check event.origin
       // To verify the targetOrigin matches
@@ -38,6 +59,13 @@
       openerWindow.focus();
     }
 
+    //화면 출력
+    function printWin(data) {
+      document.getElementById("fnPrint").innerHTML = data;
+      //window.print(); //브라우져 프린터출력
+    }
+
+    
     </script>
 </head>
 
@@ -49,8 +77,11 @@
                 <input type="button" onclick='sendMessage();' value="parent win send message">
                 <input type='button' id='btnCloseMe' value='Close me' onclick='closeMe();' />
             </fieldset>
-   
     </form>
+
+    <br>
+    <div id='fnPrint'></div>
+
 </body>
 
 </html>

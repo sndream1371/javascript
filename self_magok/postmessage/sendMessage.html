@@ -9,10 +9,18 @@ const childname = "popup";
 function openChild() {
   childwin = window.open('recvMessage.html', childname, 'height=300px, width=500px');
 }
+
 function sendMessage(){
-    let msg={pName : "Bob", pAge: "35"};
+    let msg={pName : "Bob", pAge: "35"}; //Object
     // In production, DO NOT use '*', use toe target domain
-    childwin.postMessage(msg,'*')// childwin is the targetWindow
+    //childwin.postMessage(msg,'*')// childwin is the targetWindow
+    childwin.postMessage(msg,'http://127.0.0.1:5500')
+    childwin.focus();
+}
+
+function sendMessageString(){
+    let msg="{'ifId':1000, 'name':'jinyoung', 'age':'30', 'tall':'180', 'ikesport':'bike' }"; //문자열
+    childwin.postMessage(msg,'http://127.0.0.1:5500'); //문자열전송
     childwin.focus();
 }
 
@@ -39,7 +47,8 @@ window.addEventListener("message", (event)=>{
     <form>
         <fieldset>
             <input type='button' id='btnopen' value='Open child' onclick='openChild();' />
-            <input type='button' id='btnSendMsg' value='Send Message' onclick='sendMessage();' />
+            <input type='button' id='btnSendMsg' value='Send Message Object' onclick='sendMessage();' />
+            <input type='button' id='btnSendMsgString' value='Send Message String' onclick='sendMessageString();' />
         </fieldset>
     </form>
 
