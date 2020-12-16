@@ -4,12 +4,16 @@
     <title></title>
     <meta charset="utf-8" />
     <script>
+
+      'use strict'
     // Allow window to listen for a postMessage
     // postmessage를 수신받아 처리하는 메소드
     window.addEventListener("message", (event)=>{
 
       console.log('recvmsg origin :'+event.origin);
+      console.log('recvmsg data :'+event.data);
 
+      /*
       if( event.origin !== 'http://127.0.0.1:5500'){
         console.log('접근이 불가합니다.');
         return;
@@ -29,6 +33,7 @@
       }else{
         console.log('Not Object, Not String')
       }
+      */
 
       // Normally you would check event.origin
       // To verify the targetOrigin matches
@@ -49,6 +54,8 @@
       } catch (e) { console.log(e) }
     }
 
+
+
     /* 송신----------------------------------------------------------*/
     const openerWindow = window.opener; //현재창을 열었던 창의 참조를 반환
 
@@ -59,6 +66,12 @@
       openerWindow.focus();
     }
 
+    const sendPostMessage = function (msg){
+      openerWindow.postMessage(msg,'*')// childwin is the targetWindow
+      //console.log(`${msg}`);
+      console.log(msg)
+    }
+
     //화면 출력
     function printWin(data) {
       document.getElementById("fnPrint").innerHTML = data;
@@ -66,6 +79,18 @@
     }
 
     
+    /**페이지 로딩 완료후**********/
+    {
+      (function(){
+        console.log('챗봇AI 로딩후....');
+        
+        //IF_202 (챗봇->키오스크) 로딩완료 전문 
+        const if202 = { ifId : 'IF_202'};
+        sendPostMessage(if202);
+      })();
+
+
+    }
     </script>
 </head>
 
