@@ -30,19 +30,44 @@ function sendMessageString(){
 const sendPostMessage = function (msg){
     //childwin.postMessage(msg,'http://127.0.0.1:5500')
     childwin.postMessage(msg,'*')
+    console.log('[KOSK_SEND] '+ JSON.stringify(msg));
 }
+
+// IF_101 전송
+const msgIf101 = function (){
+    let msg = { ifId : 'IF_100'};
+    sendPostMessage(msg);
+}
+
+const landingProc = function (recvMsg){
+    let landType = recvMsg.landingType;
+    let landUrl = recvMsg.landingUrl;
+    
+    console.log(`landType: ${landType}, landUrl: ${landUrl}`);
+    switch(landType){
+        case 'CS':
+            location.href = landUrl;
+            break;
+        default :
+            console.log('landing type is not matching!');
+            break;
+    }
+
+    
+}
+
 
 /*recv message from popup-------------------------------------*/
 // Allow window to listen for a postMessage
 window.addEventListener("message", (event)=>{
 
-  console.log('from popup origin :'+event.origin);
-  console.log('from popup data :'+event.data);
+  console.log('From CHATBOT origin:'+event.origin+ ' CATBOT data:'+ JSON.stringify(event.data) );
 
   const recvMsg = event.data;
-  console.log(recvMsg.ifId);
+  console.log('[KOSK_RECV] '+recvMsg.ifId);
   switch(recvMsg.ifId){
     case 'IF_200' :
+        landingProc(recvMsg);
         break;
     case 'IF_201' :   
         break;
@@ -77,8 +102,10 @@ window.addEventListener("message", (event)=>{
 </head>
 <body>
     <form>
+        <h1>U+키오스크</h1>
         <fieldset>
-            <input type='button' id='btnopen' value='Open 챗봇AI' onclick='openChild();' />
+            <input type='button' id='btnopen' value='Window Open, 챗봇AI' onclick='openChild();' />
+            <input type='button' id='btntimeout' value='키오스크 세션타임아웃' onclick='msgIf101();' />
             <input type='button' id='btnSendMsg' value='Send Message Object' onclick='sendMessage();' />
             <input type='button' id='btnSendMsgString' value='Send Message String' onclick='sendMessageString();' />
         </fieldset>
@@ -87,3 +114,4 @@ window.addEventListener("message", (event)=>{
     <div id='recvMsg'></div>
 </body>
 </html>
+

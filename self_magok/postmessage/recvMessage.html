@@ -10,8 +10,10 @@
     // postmessage를 수신받아 처리하는 메소드
     window.addEventListener("message", (event)=>{
 
-      console.log('recvmsg origin :'+event.origin);
-      console.log('recvmsg data :'+event.data);
+      //console.log(event);
+      //console.log('[CHATBOT_RECV]  origin:'+event.origin+ ' CATBOT data:'+ JSON.stringify(event.data) );
+      console.log('[CHATBOT_RECV] '+ JSON.stringify(event.data) );
+      //console.log('[CHATBOT_RECV] '+event.data.ifId);
 
       /*
       if( event.origin !== 'http://127.0.0.1:5500'){
@@ -69,8 +71,14 @@
     const sendPostMessage = function (msg){
       openerWindow.postMessage(msg,'*')// childwin is the targetWindow
       //console.log(`${msg}`);
-      console.log(msg)
+      console.log('[CAHTBOT_SEND] '+JSON.stringify(msg));
     }
+
+    function sendLandingMessage(){
+      let msg={ ifId : 'IF_200', landingType:'CS', landingUrl:'https://cschatbot.uplus.co.kr/cschatbot'};
+      openerWindow.postMessage(msg,'*')// childwin is the targetWindow
+    }
+
 
     //화면 출력
     function printWin(data) {
@@ -82,7 +90,7 @@
     /**페이지 로딩 완료후**********/
     {
       (function(){
-        console.log('챗봇AI 로딩후....');
+        console.log('챗봇AI 로딩완료....');
         
         //IF_202 (챗봇->키오스크) 로딩완료 전문 
         const if202 = { ifId : 'IF_202'};
@@ -96,11 +104,13 @@
 
 <body>
     <form>
-        <h1>Recipient of postMessage</h1>
+        <h1>챗봇AI</h1>
             <fieldset>
                 <input type='text' id='txtMsg' />
-                <input type="button" onclick='sendMessage();' value="parent win send message">
-                <input type='button' id='btnCloseMe' value='Close me' onclick='closeMe();' />
+                <input type="button" onclick='sendLandingMessage();' value="CS화면 랜딩">                             
+                <input type="button" onclick='sendClose();' value="CS화면종료">
+                <!--input type="button" onclick='sendMessage();' value="parent win send message">
+                <input type='button' id='btnCloseMe' value='Close me' onclick='closeMe();' / -->
             </fieldset>
     </form>
 
